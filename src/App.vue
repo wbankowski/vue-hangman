@@ -35,14 +35,23 @@ export default {
       this.isActive = true;
       this.counter = 0;
       this.clickedLetters = [];
-      this.word = this.randomWord();
+      this.word = this.getRandomWord();
       this.wordLetters = this.word.split("");
       this.wordTemplate = Array(this.word.length);
     },
-    randomWord() {
-      let index = Math.floor(Math.random() * this.wordsLibrary.length);
-      let word = this.wordsLibrary[index];
-      // this.wordsLibrary.splice(index, 1);
+    // randomWord() {
+    //   let index = Math.floor(Math.random() * this.wordsLibrary.length);
+    //   let word = this.wordsLibrary[index];
+    //   return word;
+    // },
+    getRandomWord: async function getWord() {
+      //await the response of the fetch call
+      let response = await fetch(
+        "https://api.wordnik.com/v4/words.json/randomWord"
+      );
+      //proceed once the first promise is resolved.
+      let word = await response.json();
+      //proceed only when the second promise is resolved
       return word;
     },
     checkChar(letter) {
